@@ -11,6 +11,10 @@ public class Question {
     private List<String> answers;
     private String correctAnswer;
 
+    public Question() {
+    // Default-Konstruktor für Spring / Jackson
+    }
+
     public Question(String id, String text, String category, String
             difficulty,List<String> answers, String correctAnswer) {
         this.id = id;

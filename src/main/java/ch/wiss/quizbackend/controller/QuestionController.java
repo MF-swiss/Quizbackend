@@ -1,16 +1,22 @@
-package ch.wiss.quizbackend.controller;
+ package ch.wiss.quizbackend.controller;
 
-import ch.wiss.quizbackend.model.Question;
-import ch.wiss.quizbackend.service.QuestionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+ import ch.wiss.quizbackend.model.Question;
+ import ch.wiss.quizbackend.service.QuestionService;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class QuestionController {
+
+ import java.util.List;
+
+
+ @RestController
+ public class QuestionController {
+
 
     private final QuestionService questionService;
+
 
     // Hier passiert Dependency Injection:
     // Spring sieht, dass der Controller einen QuestionService braucht,
@@ -19,8 +25,17 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
+
     @GetMapping("/api/questions")
     public List<Question> getQuestions() {
         return questionService.getAllQuestions();
+
+
     }
-}
+
+
+    @GetMapping("/api/questions/{id}")
+    public Question getQuestionById(@PathVariable String id) {
+        return questionService.getQuestionById(id);
+    }
+ }

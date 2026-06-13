@@ -1,6 +1,8 @@
-package ch.wiss.quizbackend.repository;
+package ch.wiss.quizbackend;
 
 import ch.wiss.quizbackend.model.Question;
+import ch.wiss.quizbackend.repository.QuestionRepository;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest; 

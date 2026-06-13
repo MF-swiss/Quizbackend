@@ -1,38 +1,58 @@
 package ch.wiss.quizbackend;
 
+import ch.wiss.quizbackend.model.Question;
 import ch.wiss.quizbackend.repository.QuestionRepository;
-import ch.wiss.quizbackend.service.QuestionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-/**
- * Füllt die Datenbank beim Programmstart mit Startdaten.
- * <p>
- * Die Daten werden nicht neu erfunden, sondern aus dem bestehenden
- * {@link QuestionService} übernommen und in die DB geschrieben.
- */
+import java.util.List;
+
 @Component
 public class DataSeeder implements CommandLineRunner {
 
-    private final QuestionService questionService;
     private final QuestionRepository questionRepository;
 
-    public DataSeeder(QuestionService questionService, 
-                      QuestionRepository questionRepository) {
-        this.questionService = questionService;
+    public DataSeeder(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 
     @Override
     public void run(String... args) {
-          // Nur seeden, wenn die Tabelle leer ist,sonst bei jedem Neustart Duplikate.
         if (questionRepository.count() == 0) {
-          questionRepository.saveAll(questionService.getAllQuestions());
-          System.out.println("DataSeeder: " + questionRepository.count()
+            questionRepository.saveAll(getStartQuestions());
+            System.out.println("DataSeeder: " + questionRepository.count()
                     + " Fragen in die DB geschrieben.");
         } else {
-            System.out.println("DataSeeder: DB enthält bereits Daten,  kein Seeding nötig.");
+            System.out.println("DataSeeder: DB enthält bereits Daten, kein Seeding nötig.");
         }
     }
-}
 
+    private List<Question> getStartQuestions() {
+        return List.of(
+                new Question(
+                        "1",
+                        "Welches Protokoll wird für verschlüsselte Webseiten verwendet?",
+                        "Technologie",
+                        "leicht",
+                        List.of("HTTP", "FTP", "SSH", "HTTPS"),
+                        "HTTPS"
+                ),
+                new Question(
+                        "2",
+                        "Welche Datenbankart ist dokumentenorientiert?",
+                        "Technologie",
+                        "schwer",
+                        List.of("MySQL", "MongoDB", "PostgreSQL", "SQLite"),
+                        "MongoDB"
+                ),
+                new Question(
+                        "8",
+                        "Was beschreibt die Big-O-Notation?",
+                        "Technologie",
+                        "schwer",
+                        List.of("Die Geschwindigkeit eines Prozessors", "Die Komplexität eines Algorithmus", "Die Größe eines Datensatzes", "Die Anzahl der Threads"),
+                        "Die Komplexität eines Algorithmus"
+                )
+        );
+    }
+}

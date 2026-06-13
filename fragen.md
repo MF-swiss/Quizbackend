@@ -1,16 +1,3 @@
-package ch.wiss.quizbackend;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-@RestController
-public class QuestionController {
-
-    @GetMapping("/api/questions")
-    public List<Question> getQuestions() {
-        return List.of(
                 new Question(
                         "1",
                         "Welches Land hat die meisten FIFA-WMs gewonnen?",
@@ -75,6 +62,3 @@ public class QuestionController {
                         List.of("Die Geschwindigkeit eines Prozessors", "Die Komplexität eines Algorithmus", "Die Größe eines Datensatzes", "Die Anzahl der Threads"),
                         "Die Komplexität eines Algorithmus"
                 )
-        );
-    }
-}

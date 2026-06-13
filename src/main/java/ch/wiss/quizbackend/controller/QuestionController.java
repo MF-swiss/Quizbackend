@@ -1,41 +1,52 @@
- package ch.wiss.quizbackend.controller;
+package ch.wiss.quizbackend.controller;
 
+import ch.wiss.quizbackend.model.Question;
+import ch.wiss.quizbackend.service.QuestionService;
 
- import ch.wiss.quizbackend.model.Question;
- import ch.wiss.quizbackend.service.QuestionService;
- import org.springframework.web.bind.annotation.GetMapping;
- import org.springframework.web.bind.annotation.PathVariable;
- import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
- import java.util.List;
+@RestController
+public class QuestionController {
 
+        private final QuestionService questionService;
 
- @RestController
- public class QuestionController {
+        // Hier passiert Dependency Injection:
+        // Spring sieht, dass der Controller einen QuestionService braucht,
+        // und reicht ihn beim Erstellen automatisch herein.
+        public QuestionController(QuestionService questionService) {
+                this.questionService = questionService;
+        }
 
+        @GetMapping("/api/questions")
+        public List<Question> getQuestions() {
+                return questionService.getAllQuestions();
 
-    private final QuestionService questionService;
+        }
 
+        @GetMapping("/api/questions/{id}")
+        public Question getQuestionById(@PathVariable String id) {
+                return questionService.getQuestionById(id);
+        }
 
-    // Hier passiert Dependency Injection:
-    // Spring sieht, dass der Controller einen QuestionService braucht,
-    // und reicht ihn beim Erstellen automatisch herein.
-    public QuestionController(QuestionService questionService) {
-        this.questionService = questionService;
-    }
+        @PostMapping("/api/questions")
+        @ResponseStatus(HttpStatus.CREATED)
+        public Question createQuestion(@RequestBody Question question) {
+                return questionService.createQuestion(question);
+        }
 
+        @PutMapping("/api/questions/{id}")
+        public Question updateQuestion(@PathVariable String id,
+                        @RequestBody Question question) {
+                return questionService.updateQuestion(id, question);
+        }
 
-    @GetMapping("/api/questions")
-    public List<Question> getQuestions() {
-        return questionService.getAllQuestions();
+        @DeleteMapping("/api/questions/{id}")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void deleteQuestion(@PathVariable String id) {
+                questionService.deleteQuestion(id);
+        }
 
-
-    }
-
-
-    @GetMapping("/api/questions/{id}")
-    public Question getQuestionById(@PathVariable String id) {
-        return questionService.getQuestionById(id);
-    }
- }
+}

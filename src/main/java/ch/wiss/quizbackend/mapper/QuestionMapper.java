@@ -1,15 +1,12 @@
 package ch.wiss.quizbackend.mapper;
 
+import ch.wiss.quizbackend.dto.QuestionFormDTO;
+import ch.wiss.quizbackend.model.Question;
 
- import ch.wiss.quizbackend.dto.QuestionFormDTO;
- import ch.wiss.quizbackend.model.Question;
-
-
- /**
+/**
  * Wandelt ein QuestionFormDTO in eine Question-Entity um.
  */
- public class QuestionMapper {
-
+public class QuestionMapper {
 
     /**
      * Erzeugt eine Question-Entity aus den Formulardaten und einer id.
@@ -26,4 +23,4 @@ package ch.wiss.quizbackend.mapper;
         question.setCorrectAnswer(dto.correctAnswer());
         return question;
     }
- }
+}

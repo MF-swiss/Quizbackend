@@ -1,25 +1,22 @@
 package ch.wiss.quizbackend.service;
 
+import ch.wiss.quizbackend.model.Question;
+import ch.wiss.quizbackend.repository.QuestionRepository;
+import org.springframework.stereotype.Service;
+import ch.wiss.quizbackend.dto.QuestionFormDTO;
+import ch.wiss.quizbackend.mapper.QuestionMapper;
+import java.util.UUID;
 
- import ch.wiss.quizbackend.model.Question;
- import ch.wiss.quizbackend.repository.QuestionRepository;
- import org.springframework.stereotype.Service;
+import java.util.List;
 
-
- import java.util.List;
-
-
- @Service
- public class QuestionService {
-
+@Service
+public class QuestionService {
 
     private final QuestionRepository questionRepository;
-
 
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
-
 
     /**
      * Liefert alle Fragen aus der Datenbank.
@@ -28,39 +25,47 @@ package ch.wiss.quizbackend.service;
         return questionRepository.findAll();
     }
 
-
     /**
-     * Liefert eine einzelne Frage anhand ihrer ID, oder null, 
+     * Liefert eine einzelne Frage anhand ihrer ID, oder null,
      * wenn es sie nicht gibt.
      */
     public Question getQuestionById(String id) {
         return questionRepository.findById(id).orElse(null);
     }
 
-        /**
-         * Speichert eine neue Frage in der Datenbank und gibt die
-         * gespeicherte Frage zurück.
-         */
-        public Question createQuestion(Question question) {
+    /**
+     * Erstellt eine neue Frage. Die id wird hier vom Server erzeugt,
+     * damit der Client sich keine eindeutige id ausdenken muss.
+     * @param form
+     * @return
+     */
+    public Question createQuestion(QuestionFormDTO form) {
+        String id = UUID.randomUUID().toString();
+        Question question = QuestionMapper.toEntity(id, form);
         return questionRepository.save(question);
-        }
+    }
 
 
-        /**
-         *  Aktualisiert eine bestehende Frage. Die id aus dem Pfad ist
-         * massgebend und wird auf die Frage gesetzt, bevor gespeichert wird.
-         */
-        public Question updateQuestion(String id, Question question) {
-        question.setId(id);
+
+
+    /**
+     * Aktualisiert eine bestehende Frage. Die id stammt aus der URL
+     * und ist damit die einzige Quelle der Wahrheit.
+     * @param id
+     * @param form
+     * @return
+     */
+    public Question updateQuestion(String id, QuestionFormDTO form) {
+        Question question = QuestionMapper.toEntity(id, form);
         return questionRepository.save(question);
-        }
+    }
 
 
-        /**
-         * Löscht die Frage mit der angegebenen id aus der Datenbank.
-         */
-        public void deleteQuestion(String id) {
+    /**
+     * Löscht die Frage mit der angegebenen id aus der Datenbank.
+     */
+    public void deleteQuestion(String id) {
         questionRepository.deleteById(id);
-        }
+    }
 
- }
+}

@@ -1,12 +1,10 @@
 package ch.wiss.quizbackend.controller;
-
 import ch.wiss.quizbackend.model.Question;
 import ch.wiss.quizbackend.service.QuestionService;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import ch.wiss.quizbackend.dto.QuestionFormDTO;
 
 @RestController
 public class QuestionController {
@@ -33,15 +31,17 @@ public class QuestionController {
 
         @PostMapping("/api/questions")
         @ResponseStatus(HttpStatus.CREATED)
-        public Question createQuestion(@RequestBody Question question) {
-                return questionService.createQuestion(question);
+        public Question createQuestion(@RequestBody QuestionFormDTO form) {
+        return questionService.createQuestion(form);
         }
 
+
         @PutMapping("/api/questions/{id}")
-        public Question updateQuestion(@PathVariable String id,
-                        @RequestBody Question question) {
-                return questionService.updateQuestion(id, question);
+        public Question updateQuestion(@PathVariable String id, 
+                                        @RequestBody  QuestionFormDTO form) {
+        return questionService.updateQuestion(id, form);
         }
+
 
         @DeleteMapping("/api/questions/{id}")
         @ResponseStatus(HttpStatus.NO_CONTENT)

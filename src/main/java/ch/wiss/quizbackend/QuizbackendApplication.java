@@ -12,6 +12,3 @@ public class QuizbackendApplication {
 	}
 
 }
-
-Als nächstes kommt
-04B - DTOs: Den Client nicht alles bestimmen lassen

@@ -1,14 +1,18 @@
 package ch.wiss.quizbackend.service;
 
+import ch.wiss.quizbackend.dto.QuestionFormDTO;
+import ch.wiss.quizbackend.mapper.QuestionMapper;
 import ch.wiss.quizbackend.model.Question;
 import ch.wiss.quizbackend.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
-import ch.wiss.quizbackend.dto.QuestionFormDTO;
-import ch.wiss.quizbackend.mapper.QuestionMapper;
-import java.util.UUID;
 
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * Service-Schicht für Fragen. Kapselt die Geschäftslogik und
+ * vermittelt zwischen Controller und Repository.
+ */
 @Service
 public class QuestionService {
 
@@ -20,14 +24,16 @@ public class QuestionService {
 
     /**
      * Liefert alle Fragen aus der Datenbank.
+     * @return
      */
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
 
     /**
-     * Liefert eine einzelne Frage anhand ihrer ID, oder null,
-     * wenn es sie nicht gibt.
+     * Liefert eine einzelne Frage anhand ihrer ID, oder null, wenn es sie nicht gibt.
+     * @param id
+     * @return
      */
     public Question getQuestionById(String id) {
         return questionRepository.findById(id).orElse(null);
@@ -44,8 +50,6 @@ public class QuestionService {
         Question question = QuestionMapper.toEntity(id, form);
         return questionRepository.save(question);
     }
-
-
 
 
     /**
@@ -67,5 +71,4 @@ public class QuestionService {
     public void deleteQuestion(String id) {
         questionRepository.deleteById(id);
     }
-
 }

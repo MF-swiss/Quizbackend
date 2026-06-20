@@ -6,7 +6,6 @@ import ch.wiss.quizbackend.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
@@ -23,6 +22,7 @@ public class QuestionController {
 
     /**
      * Gibt alle Fragen zurück
+     * 
      * @return Returniert eine Liste mit allen Fragen
      */
     @GetMapping("/api/questions")
@@ -33,6 +33,7 @@ public class QuestionController {
 
     /**
      * Gibt eine eine einzelne Frage zurück
+     * 
      * @param id Parameter id der geforderten Frage
      * @return Returniert die Frage mit der gewünschten id
      */
@@ -47,7 +48,6 @@ public class QuestionController {
         return questionService.createQuestion(form);
     }
 
-
     @PutMapping("/api/questions/{id}")
     public Question updateQuestion(@PathVariable String id, @RequestBody QuestionFormDTO form) {
         return questionService.updateQuestion(id, form);
@@ -58,6 +58,5 @@ public class QuestionController {
     public void deleteQuestion(@PathVariable String id) {
         questionService.deleteQuestion(id);
     }
-
 
 }

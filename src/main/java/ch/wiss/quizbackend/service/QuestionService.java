@@ -24,6 +24,7 @@ public class QuestionService {
 
     /**
      * Liefert alle Fragen aus der Datenbank.
+     * 
      * @return
      */
     public List<Question> getAllQuestions() {
@@ -31,7 +32,9 @@ public class QuestionService {
     }
 
     /**
-     * Liefert eine einzelne Frage anhand ihrer ID, oder null, wenn es sie nicht gibt.
+     * Liefert eine einzelne Frage anhand ihrer ID, oder null, wenn es sie nicht
+     * gibt.
+     * 
      * @param id
      * @return
      */
@@ -42,6 +45,7 @@ public class QuestionService {
     /**
      * Erstellt eine neue Frage. Die id wird hier vom Server erzeugt,
      * damit der Client sich keine eindeutige id ausdenken muss.
+     * 
      * @param form
      * @return
      */
@@ -51,10 +55,10 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-
     /**
      * Aktualisiert eine bestehende Frage. Die id stammt aus der URL
      * und ist damit die einzige Quelle der Wahrheit.
+     * 
      * @param id
      * @param form
      * @return
@@ -63,7 +67,6 @@ public class QuestionService {
         Question question = QuestionMapper.toEntity(id, form);
         return questionRepository.save(question);
     }
-
 
     /**
      * Löscht die Frage mit der angegebenen id aus der Datenbank.

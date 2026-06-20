@@ -35,24 +35,21 @@ public class DataSeeder implements CommandLineRunner {
                         "Technologie",
                         "leicht",
                         List.of("HTTP", "FTP", "SSH", "HTTPS"),
-                        "HTTPS"
-                ),
+                        "HTTPS"),
                 new Question(
                         "2",
                         "Welche Datenbankart ist dokumentenorientiert?",
                         "Technologie",
                         "schwer",
                         List.of("MySQL", "MongoDB", "PostgreSQL", "SQLite"),
-                        "MongoDB"
-                ),
+                        "MongoDB"),
                 new Question(
                         "8",
                         "Was beschreibt die Big-O-Notation?",
                         "Technologie",
                         "schwer",
-                        List.of("Die Geschwindigkeit eines Prozessors", "Die Komplexität eines Algorithmus", "Die Größe eines Datensatzes", "Die Anzahl der Threads"),
-                        "Die Komplexität eines Algorithmus"
-                )
-        );
+                        List.of("Die Geschwindigkeit eines Prozessors", "Die Komplexität eines Algorithmus",
+                                "Die Größe eines Datensatzes", "Die Anzahl der Threads"),
+                        "Die Komplexität eines Algorithmus"));
     }
 }

@@ -8,8 +8,6 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-
-
 /**
  * Eine Quizfrage mit ihren Antwortmöglichkeiten.
  * <p>
@@ -20,7 +18,9 @@ import java.util.List;
 @Table(name = "questions")
 public class Question {
 
-    /** Eindeutige ID der Frage. Wird manuell gesetzt (passend zum M294-Frontend). */
+    /**
+     * Eindeutige ID der Frage. Wird manuell gesetzt (passend zum M294-Frontend).
+     */
     @Id
     private String id;
 
@@ -56,9 +56,8 @@ public class Question {
 
     // ... deine Getter und Setter bleiben unverändert ...
 
-
-    public Question(String id, String text, String category, String
-            difficulty,List<String> answers, String correctAnswer) {
+    public Question(String id, String text, String category, String difficulty, List<String> answers,
+            String correctAnswer) {
         this.id = id;
         this.text = text;
         this.category = category;
@@ -67,17 +66,51 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getId() { return id; }
-    public String getText() { return text; }
-    public String getCategory() { return category; }
-    public String getDifficulty() { return difficulty; }
-    public List<String> getAnswers() { return answers; }
-    public String getCorrectAnswer() { return correctAnswer; }
+    public String getId() {
+        return id;
+    }
 
-    public void setId(String id) { this.id = id; }
-    public void setText(String text) { this.text = text; }
-    public void setCategory(String category) { this.category = category; }
-    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
-    public void setAnswers(List<String> answers) { this.answers = answers; }
-    public void setCorrectAnswer(String correctAnswer) { this.correctAnswer = correctAnswer; }
+    public String getText() {
+        return text;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 }

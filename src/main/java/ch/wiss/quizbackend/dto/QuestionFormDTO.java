@@ -1,16 +1,20 @@
 package ch.wiss.quizbackend.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
-/**
- * Datentransfer-Objekt für das Erstellen und Ändern einer Frage.
- * Enthält bewusst keine id: Beim Erstellen vergibt der Server die id,
- * beim Ändern kommt sie aus der URL. Der Client kann also keine id setzen.
- */
 public record QuestionFormDTO(
-                String text,
-                String category,
-                String difficulty,
-                List<String> answers,
-                String correctAnswer) {
+        @NotBlank(message = "darf nicht leer sein.") String text,
+
+        @NotBlank(message = "darf nicht leer sein.") String category,
+
+        @NotBlank @Pattern(regexp = "leicht|mittel|schwer", message = "Erlaubt sind nur: leicht, mittel oder schwer.") String difficulty,
+
+        @NotNull @Size(min = 2, message = "Quizfrage braucht mind. 2 Antworten.") List<String> answers,
+
+        @NotBlank(message = "darf nicht leer sein.") String correctAnswer) {
 }

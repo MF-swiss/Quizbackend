@@ -3,9 +3,10 @@ package ch.wiss.quizbackend.controller;
 import ch.wiss.quizbackend.dto.QuestionFormDTO;
 import ch.wiss.quizbackend.model.Question;
 import ch.wiss.quizbackend.service.QuestionService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+
 
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class QuestionController {
 
     /**
      * Gibt alle Fragen zurück
-     * 
      * @return Returniert eine Liste mit allen Fragen
      */
     @GetMapping("/api/questions")
@@ -34,7 +34,6 @@ public class QuestionController {
 
     /**
      * Gibt eine eine einzelne Frage zurück
-     * 
      * @param id Parameter id der geforderten Frage
      * @return Returniert die Frage mit der gewünschten id
      */
@@ -46,14 +45,12 @@ public class QuestionController {
     @PostMapping("/api/questions")
     @ResponseStatus(HttpStatus.CREATED)
     public Question createQuestion(@Valid @RequestBody QuestionFormDTO form) {
-
         return questionService.createQuestion(form);
     }
 
-    @PutMapping("/api/questions/{id}")
-    public Question updateQuestion(@PathVariable String id,
-            @Valid @RequestBody QuestionFormDTO form) {
 
+    @PutMapping("/api/questions/{id}")
+    public Question updateQuestion(@PathVariable String id, @Valid @RequestBody QuestionFormDTO form) {
         return questionService.updateQuestion(id, form);
     }
 
@@ -62,6 +59,7 @@ public class QuestionController {
     public void deleteQuestion(@PathVariable String id) {
         questionService.deleteQuestion(id);
     }
+
 
     @GetMapping("/api/questions/category/{category}")
     public List<Question> getQuestionsByCategory(@PathVariable String category) {
@@ -75,17 +73,13 @@ public class QuestionController {
 
     /**
      * Gibt eine Liste von Fragen zurück, sortiert nach Kategorie,
-     * falls mitgegeben und einer Limite für die Anzahl Fragen die returniert werden
-     * sollen.
+     * falls mitgegeben und einer Limite für die Anzahl Fragen die returniert werden sollen.
      * <p>
-     * <b>Was passiert hier?</b>
+     *     <b>Was passiert hier?</b>
      * <ul>
-     * <li>@RequestParam liest Werte aus der Query der URL (der Teil nach dem
-     * ?).</li>
-     * <li>required = false macht category optional – fehlt sie, ist der Wert
-     * null.</li>
-     * <li>defaultValue = "10" belegt count vor, falls der Client nichts
-     * angibt.</li>
+     *     <li>@RequestParam liest Werte aus der Query der URL (der Teil nach dem ?).</li>
+     *     <li>required = false macht category optional – fehlt sie, ist der Wert null.</li>
+     *     <li>defaultValue = "10" belegt count vor, falls der Client nichts angibt.</li>
      * </ul>
      * </p>
      */
@@ -96,5 +90,6 @@ public class QuestionController {
             @RequestParam(defaultValue = "10") int count) {
         return questionService.getRandomQuestions(category, difficulty, count);
     }
+
 
 }
